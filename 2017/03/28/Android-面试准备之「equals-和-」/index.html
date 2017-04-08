@@ -6,17 +6,36 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Android_ZzT&#39;s blog</title>
+  <title> Android 面试准备之「equals 和 == 」 | Android_ZzT&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="千里之行 始于足下">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Android_ZzT's blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="本文为原创文章，如需转载请注明出处，谢谢!
+概述本文将围绕以下五点进行说明
+
+ 1.equals() 和 == 的作用以及应用 2.hashCode() 的作用及应用 3.hashCode() 和 equals() 的联系 4.HashSet 和 HashMap 的特性 5.Hash 冲突是什么以及如何解决
+
+一、equals() 和 == 的区别废话不多说，先举个栗子！
+1234String s">
+<meta property="og:type" content="article">
+<meta property="og:title" content=" Android 面试准备之「equals 和 == 」">
+<meta property="og:url" content="http://yoursite.com/2017/03/28/Android-面试准备之「equals-和-」/index.html">
 <meta property="og:site_name" content="Android_ZzT's blog">
-<meta property="og:description" content="千里之行 始于足下">
+<meta property="og:description" content="本文为原创文章，如需转载请注明出处，谢谢!
+概述本文将围绕以下五点进行说明
+
+ 1.equals() 和 == 的作用以及应用 2.hashCode() 的作用及应用 3.hashCode() 和 equals() 的联系 4.HashSet 和 HashMap 的特性 5.Hash 冲突是什么以及如何解决
+
+一、equals() 和 == 的区别废话不多说，先举个栗子！
+1234String s">
+<meta property="og:updated_time" content="2017-04-08T14:58:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android_ZzT's blog">
-<meta name="twitter:description" content="千里之行 始于足下">
+<meta name="twitter:title" content=" Android 面试准备之「equals 和 == 」">
+<meta name="twitter:description" content="本文为原创文章，如需转载请注明出处，谢谢!
+概述本文将围绕以下五点进行说明
+
+ 1.equals() 和 == 的作用以及应用 2.hashCode() 的作用及应用 3.hashCode() 和 equals() 的联系 4.HashSet 和 HashMap 的特性 5.Hash 冲突是什么以及如何解决
+
+一、equals() 和 == 的区别废话不多说，先举个栗子！
+1234String s">
   
     <link rel="alternative" href="/atom.xml" title="Android_ZzT&#39;s blog" type="application/atom+xml">
   
@@ -152,16 +171,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Android-面试准备之「equals-和-」" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Android-面试准备之「equals-和-」" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/28/Android-面试准备之「equals-和-」/"> Android 面试准备之「equals 和 == 」</a>
+    <h1 class="article-title" itemprop="name">
+       Android 面试准备之「equals 和 == 」
     </h1>
   
 
@@ -278,6 +295,37 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢支持！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -315,18 +363,74 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/28/Android-面试准备之「equals-和-」/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/03/28/Android-面试准备之「equals-和-」/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/23/使用-SurfaceView-写个画板/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用 SurfaceView 写个画板</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -334,146 +438,10 @@
 
 
   
-    <article id="post-使用-SurfaceView-写个画板" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/使用-SurfaceView-写个画板/">使用 SurfaceView 写个画板</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/2017/03/23/使用-SurfaceView-写个画板/" class="archive-article-date">
-  	<time datetime="2017-03-23T10:39:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>本文为原创文章，如需转载请注明出处，谢谢!</em></p>
-<blockquote>
-<p>最近项目中添加了白板涂鸦的功能，需求是手指在屏幕上滑动需要绘制出光滑曲线，可切换颜色，选择笔宽，开关画笔，撤销笔画，清空画板。网上很多实现画板都是用的 View ，我个人感觉 View 对 Canvas 的处理没有 SurfaceView 方便并且 SurfaceView 在频繁绘制的状况下性能优于 View ，所以选择了继承 SurfaceView 来实现画板功能。  </p>
-</blockquote>
-<p>先来看看效果<br><img src="/2017/03/23/使用-SurfaceView-写个画板/DoodleSurfaceView.png" alt=""></p>
-<h3 id="涉及知识"><a href="#涉及知识" class="headerlink" title="涉及知识"></a>涉及知识</h3><ul>
-<li>View onTouchEvent 方法的使用</li>
-<li>SurfaceView 的基本使用</li>
-<li>Path 的基本使用</li>
-</ul>
-<p><em>注：本人也只是个小白，本文只介绍我的想法（可能有些low）如果想了解 SurfaceView 的原理「双缓冲、绘图机制 balabala…」，去看看大神写的原理分析吧~</em></p>
-<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p><strong>1. 重写 onTouchEvent 方法</strong></p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">     	<span class="keyword">int</span> action = event.getAction();</div><div class="line">   	<span class="keyword">float</span> x = event.getX();</div><div class="line">       <span class="keyword">float</span> y = event.getY();</div><div class="line">       <span class="keyword">switch</span> (action) &#123;</div><div class="line">           <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">               mPrevX = x;</div><div class="line">               mPrevY = y;</div><div class="line">               mPath = <span class="keyword">new</span> Path();</div><div class="line">               mPath.moveTo(x, y);<span class="comment">//将 Path 起始坐标设为手指按下屏幕的坐标</span></div><div class="line">               <span class="keyword">break</span>;</div><div class="line">           <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">               Canvas canvas = mSurfaceHolder.lockCanvas();</div><div class="line">               restorePreAction(canvas);<span class="comment">//首先恢复之前绘制的内容</span></div><div class="line">               mPath.quadTo(mPrevX, mPrevY, (x + mPrevX) / <span class="number">2</span>, (y + mPrevY) / <span class="number">2</span>);</div><div class="line">               <span class="comment">//绘制贝塞尔曲线，也就是光滑的曲线，如果此处使用 lineTo 方法滑出的曲线会有折角</span></div><div class="line">               mPrevX = x;</div><div class="line">               mPrevY = y;</div><div class="line">               canvas.drawPath(mPath, mPaint);</div><div class="line">               mSurfaceHolder.unlockCanvasAndPost(canvas);</div><div class="line">               <span class="keyword">break</span>;</div><div class="line">           <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">               <span class="keyword">break</span>;</div><div class="line">       &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-</code></pre><p>这段代码中有一个方法 restorePreAction，这段代码之后会给出。用于恢复之前绘画的内容，canvas 每次都只能绘制一次内容并且不会帮我们保存，如果用 View 来实现画板也需要自己用 Bitmap 缓存之前绘制的内容，而使用 SurfaceView 简化了我们对 canvas 的处理。</p>
-<p>接着我们来简单的说一下 mSurfaceHolder。首先 mSurfaceHolder 是在初始化时通过 getHolder() 方法获取实例，然后需要调用mSurfaceHolder.addCallback(this) 方法，给 SurfaceHolder 添加监听，具体的监听内容如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceCreated</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</div><div class="line">	<span class="comment">//在 SurfaceView 初始化的时候回调</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceChanged</span><span class="params">(SurfaceHolder holder, <span class="keyword">int</span> format, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</div><div class="line">	<span class="comment">//这个方法没用到，具体使用情况请同学自己再查一下吧，按方法名的意思应该是 Surface 发生改变时回调</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">surfaceDestroyed</span><span class="params">(SurfaceHolder holder)</span> </span>&#123;</div><div class="line">	<span class="comment">//在 SurfaceView 销毁时调用，比如点击 home 键 app 进入后台时会调用这个方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后简单说一下 SurfaceView 双缓冲机制，说白了其实就是 SurfaceView 管理着两个画布，一个是 front 也就是摆在最前面被我们看到的画布，一个是 back 是后面作为缓冲的画布，我们新绘制的内容都会在 back 上，也就是通过 lockCanvas() 得到的画布，等绘制完毕后我们调用 unlockCanvasAndPost(canvas)方法，这时会把 back 画布变为 front，这样新画的内容就会显示在眼前，然后之前的 front 会变为 back，继续等待 lockCanvas 的调用。</p>
-<p><strong>2.优化 onTouchEvent 方法</strong></p>
-<p>现在考虑一个问题：「在 onTouchEvent 中，我们直接对 Path 进行操作，使得绘制的图形受到了拘束，如果以后需求扩展，要求可以画圆画方，那就需要直接修改代码，违背了面向对象的设计原则」那么应该如何解决呢？</p>
-<p>解决方案其实就是抽象，无论画圆画方还是画线，其实都是在画图形，再深一步思考，onTouchEvent 中处理的实际是我们手指的动作，所以我们只需要用一个抽象动作去处理坐标就可以了，至于具体要画什么，怎么处理坐标就可以交给子类处理了。于是我抽象出了一个类 DoodleAction 用于处理坐标。代码如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">DoodleAction</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> color;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> strokeWidth;</div><div class="line"></div><div class="line">    DoodleAction() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getColor</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> color;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setColor</span><span class="params">(<span class="keyword">int</span> color)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.color = color;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getStrokeWidth</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> strokeWidth;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStrokeWidth</span><span class="params">(<span class="keyword">float</span> strokeWidth)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.strokeWidth = strokeWidth;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"DoodleAction&#123;"</span> +</div><div class="line">                <span class="string">", color="</span> + color +</div><div class="line">                <span class="string">", strokeWidth="</span> + strokeWidth +</div><div class="line">                <span class="string">'&#125;'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 绘制当前动作内容</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> canvas 新画布</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas canvas)</span></span>;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 根据手指移动坐标进行绘制</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> x</div><div class="line">     * <span class="doctag">@param</span> y</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">(<span class="keyword">float</span> x, <span class="keyword">float</span> y)</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>此类中包含两个核心抽象方法：  </p>
-<ul>
-<li>draw 方法：通过传过来的 canvas 绘制不同的图形</li>
-<li>move 方法：用于记录手指划过的坐标，并进行对应的处理</li>
-</ul>
-<p>优化后的代码如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">	<span class="keyword">int</span> action = event.getAction();</div><div class="line">	<span class="keyword">float</span> x = event.getX();</div><div class="line">	<span class="keyword">float</span> y = event.getY();</div><div class="line">	<span class="keyword">switch</span> (action) &#123;</div><div class="line">	    <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">	        <span class="keyword">if</span> (!mIsDoodleEnabled) <span class="keyword">return</span> <span class="keyword">false</span>; <span class="comment">//如果当前设置不可绘制 直接 return false 不消费这次事件</span></div><div class="line">	        mDownX = x;</div><div class="line">	        mDownY = y;</div><div class="line">	        setCurDoodleAction(x, y);</div><div class="line">	        <span class="keyword">break</span>;</div><div class="line">	    <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">	        Canvas canvas = mSurfaceHolder.lockCanvas();</div><div class="line">	        restorePreAction(canvas);<span class="comment">//首先恢复之前绘制的内容</span></div><div class="line">	        mCurAction.move(x, y);</div><div class="line">	        mCurAction.draw(canvas); <span class="comment">//绘制当前Action</span></div><div class="line">	        mSurfaceHolder.unlockCanvasAndPost(canvas);</div><div class="line">	        <span class="keyword">break</span>;</div><div class="line">	    <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">	        <span class="keyword">if</span> (x == mDownX &amp;&amp; y == mDownY) &#123;</div><div class="line">	            <span class="comment">//目前 ACTION_DOWN --&gt; ACTION_UP 不做任何处理，如想处理可加回调</span></div><div class="line">	        &#125; <span class="keyword">else</span> &#123;</div><div class="line">	            <span class="comment">//只有手指完成滑动动作 才会添加并发送动作</span></div><div class="line">	            mDoodleActionList.add(mCurAction);<span class="comment">//添加当前动作</span></div><div class="line">	        &#125;</div><div class="line">	        mCurAction = <span class="keyword">null</span>;<span class="comment">//每次动作执行完毕应该将对象置为 null</span></div><div class="line">	        <span class="keyword">break</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>首先在 ACTION_DOWN 中执行 setCurDoodleAction 方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">/**</span></div><div class="line"> * 设置当前绘制动作类型</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> startX 初始X坐标</div><div class="line"> * <span class="doctag">@param</span> startY 初始Y坐标</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setCurDoodleAction</span><span class="params">(<span class="keyword">float</span> startX, <span class="keyword">float</span> startY)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (mType) &#123;</div><div class="line">        <span class="keyword">case</span> Path:</div><div class="line">            mCurAction = <span class="keyword">new</span> DoodlePath(startX, startY);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> Oval:</div><div class="line">            <span class="comment">//TODO 添加Oval</span></div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    mCurAction.setColor(mCurColor);</div><div class="line">    mCurAction.setStrokeWidth(mCurStrokeWidth);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个方法中初始化了我们需要的动作，mType 是我定义的 enum 类型，同学们可自行扩展。</p>
-<p>然后在 ACTION_MOVE 中执行 move draw 方法。这里我们使用抽象类型与 SurfaceView 进行交互，更利于维护和以后扩展功能。</p>
-<p>最后在 ACTION_UP 中做了一个特殊处理，手指触摸屏幕一下立即抬起即 ACTION_DOWN –&gt; ACTION_UP ，这个操作在真正使用时很容易误操作，具体原因不在此解释了，如果需要处理这个功能可以自己在这加个回调。最后 mDoodleActionList 是管理每次操作的 ArrayList，马上介绍。</p>
-<p>DoodlePath 就是继承 DoodleAction 的类，代码比较简单，直接贴出来了</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 自由曲线</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DoodlePath</span> <span class="keyword">extends</span> <span class="title">DoodleAction</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Path mPath;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> mPrevX;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> mPrevY;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Paint mPaint;</div><div class="line"></div><div class="line">    DoodlePath() &#123;</div><div class="line">        <span class="keyword">this</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">10.0f</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    DoodlePath(<span class="keyword">float</span> startX, <span class="keyword">float</span> startY) &#123;</div><div class="line">        <span class="keyword">this</span>(startX, startY, <span class="number">0</span>, <span class="number">10.0f</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    DoodlePath(<span class="keyword">float</span> startX, <span class="keyword">float</span> startY, <span class="keyword">int</span> color, <span class="keyword">float</span> strokeWidth) &#123;</div><div class="line">        <span class="keyword">this</span>.color = color;</div><div class="line">        <span class="keyword">this</span>.strokeWidth = strokeWidth;</div><div class="line">        mPath = <span class="keyword">new</span> Path();</div><div class="line">        mPath.moveTo(startX, startY);</div><div class="line">        mPrevX = startX;</div><div class="line">        mPrevY = startY;</div><div class="line">        initPaint();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initPaint</span><span class="params">()</span> </span>&#123;</div><div class="line">        mPaint = <span class="keyword">new</span> Paint();</div><div class="line">        mPaint.setAntiAlias(<span class="keyword">true</span>);</div><div class="line">        mPaint.setDither(<span class="keyword">true</span>);</div><div class="line">        mPaint.setColor(color);</div><div class="line">        mPaint.setStyle(Paint.Style.STROKE);</div><div class="line">        mPaint.setStrokeWidth(strokeWidth);</div><div class="line">        mPaint.setStrokeCap(Paint.Cap.ROUND);</div><div class="line">        mPaint.setStrokeJoin(Paint.Join.ROUND);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setColor</span><span class="params">(<span class="keyword">int</span> color)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.setColor(color);</div><div class="line">        mPaint.setColor(color);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStrokeWidth</span><span class="params">(<span class="keyword">float</span> strokeWidth)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.setStrokeWidth(strokeWidth);</div><div class="line">        mPaint.setStrokeWidth(strokeWidth);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas canvas)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (canvas != <span class="keyword">null</span>) &#123;</div><div class="line">            canvas.drawPath(mPath, mPaint);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">(<span class="keyword">float</span> x, <span class="keyword">float</span> y)</span> </span>&#123;</div><div class="line">        mPath.quadTo(mPrevX, mPrevY, (x + mPrevX) / <span class="number">2</span>, (y + mPrevY) / <span class="number">2</span>);</div><div class="line">        mPrevX = x;</div><div class="line">        mPrevY = y;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">moveTo</span><span class="params">(<span class="keyword">float</span> startX, <span class="keyword">float</span> startY)</span> </span>&#123;</div><div class="line">        mPath.moveTo(startX, startY);</div><div class="line">        mPrevX = startX;</div><div class="line">        mPrevY = startY;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>3.管理 DoodleAction</strong>  </p>
-<p>上文代码中，我们每完成一次绘制，都会在 List 中添加一个对象，通过 List 进行管理 DoodleAction，之前一直没解释的 restorePreAction 方法就是通过遍历 List 把之前已有的动作全部再画一遍，代码如下。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 重新加载之前绘制的内容</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> canvas 画布</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">restorePreAction</span><span class="params">(Canvas canvas)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (canvas == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR); <span class="comment">//加载之前内容前清空画布</span></div><div class="line">    <span class="keyword">if</span> (mDoodleActionList != <span class="keyword">null</span> &amp;&amp; mDoodleActionList.size() &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">for</span> (DoodleAction action : mDoodleActionList) &#123;</div><div class="line">            action.draw(canvas);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在遍历 List 之前需要清空画板，否则界面会重复绘制之前的内容。</p>
-<p>此外，通过 List 我们可以容易的实现撤销和清空画板的需求，现在来看这两个方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">undoAction</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> size = mDoodleActionList == <span class="keyword">null</span>? <span class="number">0</span> : mDoodleActionList.size();</div><div class="line">    <span class="keyword">if</span> (size &gt; <span class="number">0</span>) &#123;</div><div class="line">        mDoodleActionList.remove(size - <span class="number">1</span>);</div><div class="line">        Canvas canvas = mSurfaceHolder.lockCanvas();</div><div class="line">        restorePreAction(canvas);</div><div class="line">        mSurfaceHolder.unlockCanvasAndPost(canvas);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>撤销很简单，只是将 List 中最后一个对象 remove，然后重新绘制内容即可。</p>
-<p>清空更容易，直接清空 List，让后执行清空画板的操作就行，代码如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cleanWhiteBoard</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mDoodleActionList != <span class="keyword">null</span> &amp;&amp; mDoodleActionList.size() &gt; <span class="number">0</span>) &#123;</div><div class="line">        mDoodleActionList.clear();</div><div class="line">        Canvas canvas = mSurfaceHolder.lockCanvas();</div><div class="line">        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);</div><div class="line">        mSurfaceHolder.unlockCanvasAndPost(canvas);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>4.涂鸦数据的通信</strong> </p>
-<p>上面的介绍已经可以实现一个单机版的画板了，如果现在需要将涂鸦数据封装，然后通过网络发送给其他终端，应该如何处理呢？由于后台和前端通可以用很多方式实现，我只说一下大概的思路。</p>
-<p>首先需要设计一个承载涂鸦数据的对象，对象的属性可能包括  </p>
-<ol>
-<li>画笔颜色 paintColor</li>
-<li>画笔宽度 paintStrokeWidth</li>
-<li>坐标集合 pointList</li>
-<li>用户 Id  userId</li>
-</ol>
-<p>对象设计好后就可以进行通信了，这里说一下前端的做法，分为发送方和接收方。</p>
-<ul>
-<li><p>发送方：<br>  在 ACTION_DOWN 的时候创建传输对象，然后初始化画笔信息，然后在 ACTION_MOVE 的时候采集坐标，最后在 ACTION_UP 的时候添加一个回调，将对象传过去，之后就可以做网络请求了。</p>
-</li>
-<li><p>接收方：<br>假如数据传输格式为 json，将 json 解析为对象，然后通过 Path 连接对象中的坐标集合，设置画笔信息，然后展示在 SurfaceView 上即可</p>
-</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文没涉及原理的讲解，只是向大家阐述了我通过 SurfaceView 实现画板的核心思路，如果各位小伙伴想要更深入了解原理可以参考下面的文章哦！<br>「史上讲的最细的Path」<a href="http://www.jianshu.com/p/b872b064d369" target="_blank" rel="external">http://www.jianshu.com/p/b872b064d369</a><br>「老罗对 SurfaceView 的详细分析」<a href="http://blog.csdn.net/luoshengyang/article/details/8661317" target="_blank" rel="external">http://blog.csdn.net/luoshengyang/article/details/8661317</a></p>
-<p>如果文章中有说的不对的地方，请及时告诉我！因为我也是个初学者，望各位大神多多指点！</p>
-<p><em>需要看源码的同学，可以到我的 github clone， 欢迎给位提 issue，如果能给个 star 更感激不尽！</em></p>
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/23/使用-SurfaceView-写个画板/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-  
 
 
           </div>
@@ -495,8 +463,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
