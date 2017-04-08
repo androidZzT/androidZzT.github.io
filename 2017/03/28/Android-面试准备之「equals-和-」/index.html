@@ -26,7 +26,7 @@
 
 一、equals() 和 == 的区别废话不多说，先举个栗子！
 1234String s">
-<meta property="og:updated_time" content="2017-04-08T15:36:03.000Z">
+<meta property="og:updated_time" content="2017-04-08T15:42:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" Android 面试准备之「equals 和 == 」">
 <meta name="twitter:description" content="本文为原创文章，如需转载请注明出处，谢谢!
@@ -218,7 +218,7 @@
 <h3 id="二、equals-和-hashCode-的关系"><a href="#二、equals-和-hashCode-的关系" class="headerlink" title="二、equals() 和 hashCode() 的关系"></a>二、equals() 和 hashCode() 的关系</h3><blockquote>
 <p>可能一说到 hashCode() 方法，就能开始背课文了：<br>1、如果两个对象相等（equals() 返回 true），那么它们的 hashCode()一定要相同；<br>2、如果两个对象hashCode()相等，它们并不一定相等（equals() 不一定返回 true）。</p>
 </blockquote>
-<p>这课文的结论肯定没错，但他们的应用场景究竟是什么呢？我们什么时候会同时用到 equals()和 hashCode() 呢？</p>
+<p>这课文的结论肯定没错，但他们的应用场景究竟是什么呢？我们什么时候会同时用到 equals()  和 hashCode() 呢？</p>
 <p>在回答这两个问题前，我们先要认清 hashCode()方法的作用是什么，来看下面的解释。</p>
 <blockquote>
 <p>hashCode()，返回对象的哈希码，作用是根据哈希码确定对象在散列表中的位置（单独创建对象或创建数组类型对象时 hashCode() 无作用)。</p>
@@ -227,7 +227,7 @@
 <blockquote>
 <p>散列表本质是数组存储，通过 key-value 的形式存储数据，所以当取 value 的时候，实际上取数组某个位置的元素，并且以 key 的 hashCode 作为 value 在数组中的位置。</p>
 </blockquote>
-<p>我们平时用的 HashSet、HashMap 都是散列表结构，接着我们就已这两个集合为例，详细分析一下 hashCode 在其中的作用。</p>
+<p>我们平时用的 HashSet、HashMap 都是散列表结构，接着我们就以这两个集合为例，详细分析一下 hashCode 在其中的作用。</p>
 <p><strong>我们先在此小节简单的说一下 HashSet。面试题常会问，List 和 Set 的区别是什么，又可以背课文了：</strong></p>
 <blockquote>
 <p>1.List 是按 add 顺序存储，且元素可以重复，元素有索引，可以根据元素位置进行 get。<br>2.Set 存储元素无序，元素不可重复，没有 get 方法，只能通过迭代器获取元素。</p>
