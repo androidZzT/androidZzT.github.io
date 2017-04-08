@@ -185,8 +185,8 @@
 <p><strong>1. equals() 方法比较的是两个对象是否相等。</strong></p>
 <p><strong>2. == 分为两种情况</strong></p>
 <ul>
-<li>比较对象，则比较的对象在内存中的空间地址是否相等</li>
-<li>比较基本类型，则比较值是否相等</li>
+<li>比较对象，比较的是对象在内存中的空间地址是否相等</li>
+<li>比较基本类型，比较的是值是否相等</li>
 </ul>
 <p>解释完原理后，相信上面的题解答就易如反掌了，str1,str2 均为 String 对象。equals() 比较对象，== 比较内存地址，那么问题来了，String 的 equals()方法是怎么比较对象是否相等的呢？那我们就来看看源码吧</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123; <span class="comment">//对象的空间地址相同，说白了就是一个对象！</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123; <span class="comment">//地址不同，而且对象是 String</span></div><div class="line">            String anotherString = (String)anObject;</div><div class="line">            <span class="keyword">int</span> n = value.length;</div><div class="line">            <span class="keyword">if</span> (n == anotherString.value.length) &#123; </div><div class="line">            <span class="comment">//这里首先看两个 String 长度是否相同，如果不同就不等</span></div><div class="line">                <span class="keyword">char</span> v1[] = value;</div><div class="line">                <span class="keyword">char</span> v2[] = anotherString.value;</div><div class="line">                <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">                <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123; <span class="comment">//然后逐一比对字符</span></div><div class="line">                    <span class="keyword">if</span> (v1[i] != v2[i])</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                    i++;</div><div class="line">                &#125;<span class="comment">// 所有字符都相等，OK ,String对象就相等了</span></div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
@@ -249,9 +249,12 @@
 <p>2.根据 key 的 hash 值来计算数组的位置 index，然后对当前位置的节点判空，如果为 null，则新建一个节点对象。</p>
 <p>3.若 tab[index] != null，则需要对比当前节点（后文用 curNode 表示）和 put 进来的节点（后文用 putNode 表示）是否相同。可以看到源码中用两个条件进行判断:</p>
 <ul>
-<li>首先比较 curNode 和 putNode 的 hash 值是否相同（Node 的 hash 即为 key 的 hash），如果 hash 值不同，则两个对象一定不等，两个 hash 等，但对象不一定等（发生了 hash 冲突，我将在下一节详细说解决 hash 冲突的办法），如果 hash 值等，则进入下一个条件。</li>
-<li>此条件里先比较 curNode.key == putNode.key，也就是直接比较引用的内存地址，如果相同则对象相等，如果两个 key 的引用不同，则继续比较curNode.key.equals(putNode.key)，前提是 putNode.key != null，引用不同则通过 equals 方法来比较两个对象是否相同，有没有似曾相识的感觉，正是我们重写 equals 方法时的思路。</li>
-<li>一路判断下来，如果条件都为真，直接进行了赋值操作，即向 HashMap 中 put key 值相同的键值对时，value 会覆盖之前的 value。</li>
+<li><p>首先比较 curNode 和 putNode 的 hash 值是否相同（Node 的 hash 即为 key 的 hash），如果 hash 值不同，则两个对象一定不等，两个 hash 等，但对象不一定等（发生了 hash 冲突，我将在下一节详细说解决 hash 冲突的办法），如果 hash 值等，则进入下一个条件。</p>
+</li>
+<li><p>此条件里先比较 curNode.key == putNode.key，也就是直接比较引用的内存地址，如果相同则对象相等，如果两个 key 的引用不同，则继续比较curNode.key.equals(putNode.key)，前提是 putNode.key != null，引用不同则通过 equals 方法来比较两个对象是否相同，有没有似曾相识的感觉，正是我们重写 equals 方法时的思路。</p>
+</li>
+<li><p>一路判断下来，如果条件都为真，直接进行了赋值操作，即向 HashMap 中 put key 值相同的键值对时，value 会覆盖之前的 value。</p>
+</li>
 </ul>
 <p>4.假若 3 中的判断条件为假，即两个对象 hash 值相等，对象却不等，便发生了 hash 冲突，我们先看看 HashMap 是怎么解决冲突的。我在代码注释中已经写到「红黑树」和「单链表」进行存储冲突的节点，为什么是两种方式呢？我们都知道单链表的查询效率并不高，所以当冲突节点 &gt;= TREEIFY_THRESHOLD(8) 时，会调用 treeifyBin() 把单链表转为树，这样之后在 get 的时候效率会提高。这种通过链表结构解决 hash 冲突的方法称为「链地址法」。</p>
 <p>5.解决冲突后面的代码就是一些将 value 写入的过程，再之后就是处理数组容量的代码，我没细分析这里，如果同学有兴趣的话再自己钻研一下吧~</p>
