@@ -154,6 +154,120 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Android-7-0-语言设置爬坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/15/Android-7-0-语言设置爬坑/">Android 7.0 语言设置爬坑</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/15/Android-7-0-语言设置爬坑/" class="archive-article-date">
+  	<time datetime="2017-04-15T15:31:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>本文为原创文章，如需转载请注明出处，谢谢!</em></p>
+<blockquote>
+<p>最近项目出现一个语言设置的 bug，情况是这样：在程序中，语言默认选择的是「跟随系统」（系统语言列表中「简体中文」是第一个），然后选择「英语」，之后再切换回「跟随系统」，发现语言并没切回「简体中文」，而还是英文。这篇文章就给大家分享一下我是如何解决这个 bug 的。</p>
+</blockquote>
+<h3 id="Android-7-0-多语言特性"><a href="#Android-7-0-多语言特性" class="headerlink" title="Android 7.0 多语言特性"></a>Android 7.0 多语言特性</h3><p>在开始解决 bug 之前，我们还是有必要了解 7.0 中对多语言资源的处理和之前有什么不同。在此小节中，我只阐述结论，具体的分析过程请参考这篇文章，讲的很细致。  <a href="http://blog.csdn.net/cekiasoo/article/details/53012646，" target="_blank" rel="external">http://blog.csdn.net/cekiasoo/article/details/53012646，</a><br>当然官方文档也要仔细阅读一下，<a href="https://developer.android.com/guide/topics/resources/multilingual-support.html。" target="_blank" rel="external">https://developer.android.com/guide/topics/resources/multilingual-support.html。</a></p>
+<p>接下来，我直接根据官方文档中的两个表格简单解释一下 7.0 语言资源解析策略和之前系统相比有什么不同。首先我们看 6.0 及以前的解析策略。</p>
+<p><img src="/2017/04/15/Android-7-0-语言设置爬坑/developer01.png" alt=""></p>
+<p>如表中所示，6.0 及以前的系统在解析语言资源时，如果程序中没找到匹配的语言，就会直接使用默认语值（en）。接下来看看 7.0 做了哪些优化。</p>
+<p><img src="/2017/04/15/Android-7-0-语言设置爬坑/developer02.png" alt=""></p>
+<p>我们发现，如果 fr_CH 未能匹配到资源，系统会继续查找程序中有没有 fr 的子资源，于是找到了 fr_FR，而不再使用 en 作为默认语言。接下来再看另外一种情况。</p>
+<p><img src="/2017/04/15/Android-7-0-语言设置爬坑/developer03.png" alt=""></p>
+<p>用户在系统语言列表中添加了两个语言，在 fr 依次匹配失败以后，系统会继续查找用户的第二语言 it_CH，然而还是没匹配到，但是找到了 it 的子语言 it_IT，所以选其作为默认语言以更好的满足用户的需求。</p>
+<p>在 7.0 中，系统提供了新的 API<code>LocaleList.getDefault()</code>，用于获取当前设置中的语言列表，之后我们也需要通过这个 API 来解决 bug。</p>
+<h3 id="bug-细节描述"><a href="#bug-细节描述" class="headerlink" title="bug 细节描述"></a>bug 细节描述</h3><p>首先，我先要说一下怎样用代码动态的设置当前的语言，大致分为 3 步：  </p>
+<ol>
+<li>更改 Configuration 中的 locale 属性，具体代码如下 </li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Resources resources = getContext().getResources();</div><div class="line">DisplayMetrics dm = resources.getDisplayMetrics();</div><div class="line">Configuration config = resources.getConfiguration();</div><div class="line">config.locale = Locale.ENGLISH; <span class="comment">//设置语言</span></div><div class="line">resources.updateConfiguration(config, dm);</div></pre></td></tr></table></figure>
+<p>代码中通过更改 config.locale 已经被废弃，官方推荐使用 <code>config.setLocales(LocaleList localeList)</code> 和 <code>config.getLocales()</code> 来进行设置和获取语言。</p>
+<p>2.持久化语言选择，可通过 SharedPreference 进行存储，然后在每次进入程序时，先取出之前的配置然后再设置。</p>
+<p>3.重启 HomeActivity，并将设置语言的方法放在 Activity 的 onCreate()中执行，以确保每次重启时都是设置最近一次的语言配置</p>
+<p>上面只是粗略的说了一下，如果没做过语言设置的同学可以参考这篇文章，讲的很细很好。<br><a href="http://jaeger.itscoder.com/android/2016/05/14/switch-language-on-android-app.html" target="_blank" rel="external">http://jaeger.itscoder.com/android/2016/05/14/switch-language-on-android-app.html</a></p>
+<p>了解如何动态设置语言之后，我来详细描述一下 bug 的细节。 我们在设置语言时，实际就是在修改 Configuration 的一 locale 属性，但是到了 7.0 ，Configuration 将通过 LocaleList 来管理语言，bug 的产生也正源于 LocaleList。</p>
+<p>现在假设系统语言列表中是「简体中文，英语」，程序中的语言设置选的是「跟随系统」，此时打印 <code>LocaleList.getDefault()</code>，得到的结果是「简体中文，英语」，没有问题。接着我在程序中将语言切换为「德语」，然后再次打印 LocaleList，得到的结果是「德语，简体中文，英语」，发现当前语言被加到了列表的第一位，此时我们再切换回「跟随系统」，即调用 <code>Locale.getDefault()</code> 获取系统默认语言，发现语言切换成了「德语」，并不是「简体中文」，也就是默认获取了列表中的第一个语言。</p>
+<p><em>在 setLocale 后为什么被设置的语言会加到 LocaleList 的第一个，我还没探究明白，需要再仔细看看源码，如果有同学知道也可以给我解答一下！</em></p>
+<h3 id="bug-解决思路"><a href="#bug-解决思路" class="headerlink" title="bug 解决思路"></a>bug 解决思路</h3><p>由于每次动态设置语言之后，系统语言列表都会被改变，所以我的思路是在程序一开始的时候就把系统列表保存起来，以便之后使用，话不多说，来看一下我修改后的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LanguageUtil</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> LocaleList sLocaleList;</div><div class="line">	</div><div class="line">	<span class="keyword">static</span> &#123;</div><div class="line">		<span class="comment">//由于API仅支持7.0，需要判断，否则程序会crash</span></div><div class="line">		<span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.N) &#123;</div><div class="line">		    sLocaleList = LocaleList.getDefault();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setLocale</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        Resources res = context.getResources();</div><div class="line">        DisplayMetrics dm = res.getDisplayMetrics();</div><div class="line">        Configuration conf = res.getConfiguration();</div><div class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.N) &#123;</div><div class="line">            <span class="keyword">if</span> (auto) &#123; <span class="comment">//选择跟随系统</span></div><div class="line">                conf.setLocale(sLocaleList.get(<span class="number">0</span>));</div><div class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">//设置选择的语言</span></div><div class="line">                conf.setLocale(getLocale());</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            conf.locale = getCurrentLocale(context);</div><div class="line">        &#125;</div><div class="line">        res.updateConfiguration(conf, dm);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Locale <span class="title">getLocale</span><span class="params">()</span> </span>&#123;</div><div class="line">    	Locale locale;</div><div class="line">        <span class="keyword">if</span> (auto) &#123;</div><div class="line">            locale = Locale.getDefault();</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">//从 sharedPreference 中获取 Locale</span></div><div class="line">            locale = getLocaleFromSP();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> locale;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSystemLocaleList</span><span class="params">(LocaleList localeList)</span> </span>&#123;</div><div class="line">    	sLocaleList = localeList;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样修改后，我们每次切换回「跟随系统」，都是直接获取程序初始化时就获取了的系统列表的第一个语言，就不会出现每次之前那种现象了。</p>
+<p>但是，我们如果在程序中切到设置中修改了语言列表，然后再切回程序，又会出现问题了，我们在程序初始化时就获取的列表是写死的，并不会跟随系统变化而变化，所以刚才的代码还是不够健壮。如果要是能监听系统语言列表改变的话就好了，没错，解决办法就是去监听语言变化，Android 会在系统语言列表被修改时发出广播 <code>Intent.ACTION_LOCALE_CHANGED</code>，所以我们需要在 BaseActivity 里注册监听该广播，然后在收到语言列表被修改的广播时更新我们自己的列表，然后再设置语言，这样就可以完美解决问题了！看下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">	    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">	    <span class="keyword">this</span>.registerReceiver(localeChangedReceiver,</div><div class="line">	     <span class="keyword">new</span> IntentFilter(Intent.ACTION_LOCALE_CHANGED));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.unregisterReceiver(localeChangedReceiver);</div><div class="line">        <span class="keyword">super</span>.onDestroy();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> BroadcastReceiver localeChangedReceiver = <span class="keyword">new</span> BroadcastReceiver() &#123;</div><div class="line">	    <span class="meta">@Override</span></div><div class="line">	    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</div><div class="line">	        <span class="keyword">if</span> (Intent.ACTION_LOCALE_CHANGED.equals(intent.getAction())) &#123;</div><div class="line">	            <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.N) &#123;</div><div class="line">	               LanguageUtil.setSystemLocaleList(LocaleList.getDefault());</div><div class="line">	               LanguageUtil.setLocale(BaseActivity.<span class="keyword">this</span>);</div><div class="line">	            &#125;</div><div class="line">	        &#125;</div><div class="line">	    &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这是第一次解决由于Android 系统升级导致的 bug，我的解决思路是： </p>
+<ol>
+<li>了解最新系统的特性，和之前的最大区别是什么，可以应用的新 API 是什么  </li>
+<li>Debug 看看核心问题究竟出现在哪个环节  </li>
+<li>结合新特性和新 API寻找解决方案  </li>
+<li>充分利用 Android 给我们提供的资源</li>
+</ol>
+<p><em>我也是个初学者，如写的有问题，请及时联系我！感谢！</em></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/15/Android-7-0-语言设置爬坑/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Android-面试准备之「equals-和-」" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -362,7 +476,7 @@
 <p>最近项目中添加了白板涂鸦的功能，需求是手指在屏幕上滑动需要绘制出光滑曲线，可切换颜色，选择笔宽，开关画笔，撤销笔画，清空画板。网上很多实现画板都是用的 View ，我个人感觉 View 对 Canvas 的处理没有 SurfaceView 方便并且 SurfaceView 在频繁绘制的状况下性能优于 View ，所以选择了继承 SurfaceView 来实现画板功能。  </p>
 </blockquote>
 <p>先来看看效果  </p>
-
+<p><img src="/2017/03/23/使用-SurfaceView-写个画板/DoodleSurfaceView.png" alt=""></p>
 <h3 id="涉及知识"><a href="#涉及知识" class="headerlink" title="涉及知识"></a>涉及知识</h3><ul>
 <li>View onTouchEvent 方法的使用</li>
 <li>SurfaceView 的基本使用</li>
