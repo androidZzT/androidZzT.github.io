@@ -32,12 +32,12 @@
 对称加密、非对称加密（公钥加密）
 消息摘要 Message Digest、消息认证码 Message Authentication Code
 数字签名 Digita">
-<meta property="og:image" content="http://yoursite.com/初识Https,大白话讲解/https01.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/27/初识Https,大白话讲解/https01.png">
 <meta property="og:image" content="http://yoursite.com/初识Https,大白话讲解/https02.png">
 <meta property="og:image" content="http://yoursite.com/初识Https，大白话讲解/https03.png">
 <meta property="og:image" content="http://yoursite.com/初识Https,大白话讲解/https04.png">
 <meta property="og:image" content="http://yoursite.com/初识Https,大白话讲解/https_final.png">
-<meta property="og:updated_time" content="2017-05-02T09:50:58.000Z">
+<meta property="og:updated_time" content="2017-05-02T09:56:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识 Https，大白话讲解">
 <meta name="twitter:description" content="本文为原创文章，如需转载请注明出处，谢谢!  
@@ -50,7 +50,7 @@
 对称加密、非对称加密（公钥加密）
 消息摘要 Message Digest、消息认证码 Message Authentication Code
 数字签名 Digita">
-<meta name="twitter:image" content="http://yoursite.com/初识Https,大白话讲解/https01.png">
+<meta name="twitter:image" content="http://yoursite.com/2017/04/27/初识Https,大白话讲解/https01.png">
   
     <link rel="alternative" href="/atom.xml" title="Android_ZzT&#39;s blog" type="application/atom+xml">
   
@@ -220,7 +220,7 @@
 </ul>
 <p>如果读者对上面任何一个名词陌生，请参考这篇文章：<br><a href="https://foofish.net/https-story-1.html" target="_blank" rel="external">https://foofish.net/https-story-1.html</a></p>
 <p>我读完此文，受益匪浅！之后的文章我会在每一环节的阐述中捎带、粗略地解释一下上面的内容，还是强烈建议不懂上述内容的同学认真地学一下那篇文章。</p>
-<h3 id="一、Client-向-Server-提供支持的加密算法"><a href="#一、Client-向-Server-提供支持的加密算法" class="headerlink" title="一、Client 向 Server 提供支持的加密算法"></a>一、Client 向 Server 提供支持的加密算法</h3><p><img src="初识Https,大白话讲解/https01.png" alt=""></p>
+<h3 id="一、Client-向-Server-提供支持的加密算法"><a href="#一、Client-向-Server-提供支持的加密算法" class="headerlink" title="一、Client 向 Server 提供支持的加密算法"></a>一、Client 向 Server 提供支持的加密算法</h3><img src="/2017/04/27/初识Https,大白话讲解/https01.png" alt="https01.png" title="">
 <p>首先 Client 向 Server 发送一条消息，包括 Client 各种支持的加密算法、协议版本以及压缩算法。目的是通知 Server 在所给的算法中选择一种，以便于之后通信的加解密。</p>
 <p>同时，Client 会在本端生成一段随机数作为之后对称加密的私钥，现在来简单解释一下对称加密和 Client 的私钥。举个平时的栗子，你肯定要和你女朋友共享银行卡的密码（不要问为什么），假设你是 Client，女朋友是 Server，银行卡是之后传输的密文，你设置的密码就是密钥。你在家里悄悄地把密码告诉了你女朋友，密码天知地知你知你女朋友知，这时候就算银行卡丢了也不怕，因为没有第三个知道密码（密钥），所以钱（机密信息）就不会被窃取，这就是对称加密。</p>
 <h3 id="二、Server-响应-Client，传送证书以及确认信息"><a href="#二、Server-响应-Client，传送证书以及确认信息" class="headerlink" title="二、Server 响应 Client，传送证书以及确认信息"></a>二、Server 响应 Client，传送证书以及确认信息</h3><p><img src="初识Https,大白话讲解/https02.png" alt=""></p>
