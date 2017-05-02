@@ -36,8 +36,8 @@
 <meta property="og:image" content="http://yoursite.com/初识Https，图文详解/https02.png">
 <meta property="og:image" content="http://yoursite.com/初识Https，图文详解/https03.png">
 <meta property="og:image" content="http://yoursite.com/初识Https，图文详解/https04.png">
-<meta property="og:image" content="http://yoursite.com/初识Https，图文详解/https_final.png">
-<meta property="og:updated_time" content="2017-05-02T09:40:34.000Z">
+<meta property="og:image" content="http://yoursite.com/初识Https,图文详解/https_final.png">
+<meta property="og:updated_time" content="2017-05-02T09:41:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识 Https，大白话讲解">
 <meta name="twitter:description" content="本文为原创文章，如需转载请注明出处，谢谢!  
@@ -241,7 +241,7 @@
 <p>Server 收到 Client 发送的消息后，将密文用私钥解密得到了随机数。然后需要用同样的消息摘要算法对随机数进行运算，将算出来的 Hash 串与消息中的 Hash 串对比，如果内容完全一致，则继续后面的流程，如果不一致就会断开连接。</p>
 <p>如果随机数无误，Server 就会准备一条握手消息，并且会使用之前和 Client 确认过的对称加密算法对消息加密，密钥就是随机数。同样的，为防止消息被篡改，需要用消息摘要对消息进行处理。</p>
 <p>密钥通过公钥加密的方式传递过来，之后每条消息都用此密钥加密，从而保证了内容的安全。</p>
-<h3 id="五、总结完整过程"><a href="#五、总结完整过程" class="headerlink" title="五、总结完整过程"></a>五、总结完整过程</h3><p><em>这里盗用一张图</em><br><img src="初识Https，图文详解/https_final.png" alt=""><br>相信看完前面的内容已经大致明白了 https 的流程，看着上面👆的图，可把流程大致总结为：</p>
+<h3 id="五、总结完整过程"><a href="#五、总结完整过程" class="headerlink" title="五、总结完整过程"></a>五、总结完整过程</h3><p><em>这里盗用一张图</em><br><img src="初识Https,图文详解/https_final.png" alt=""><br>相信看完前面的内容已经大致明白了 https 的流程，看着上面👆的图，可把流程大致总结为：</p>
 <ul>
 <li>用公钥加密的方式安全地运送 random key</li>
 <li>之后用 random key 作为密钥进行对称加密，保障通信内容的安全</li>
