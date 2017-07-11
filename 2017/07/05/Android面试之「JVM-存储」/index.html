@@ -6,17 +6,48 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Android_ZzT&#39;s blog</title>
+  <title>Android面试之「JVM 篇 (上)」 | Android_ZzT&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="千里之行 始于足下">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Android_ZzT's blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="本文为原创文章，如需转载请注明出处，谢谢!
+概述本文将围绕以下3点对 JVM 知识进行总结，知识全部源于《深入理解 JVM》
+
+1.JVM 存储2.垃圾回收机制3.类加载  
+
+一、JVM 存储首先盗张图  
+
+1. 程序计数器 (Program Counter Register)
+概念：一块较小的内存空间，是字节码解释器的行为指示器。  
+概念比较抽象，我们知道程序执行的过程中会有分支、循环、跳">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android面试之「JVM 篇 (上)」">
+<meta property="og:url" content="http://yoursite.com/2017/07/05/Android面试之「JVM-存储」/index.html">
 <meta property="og:site_name" content="Android_ZzT's blog">
-<meta property="og:description" content="千里之行 始于足下">
+<meta property="og:description" content="本文为原创文章，如需转载请注明出处，谢谢!
+概述本文将围绕以下3点对 JVM 知识进行总结，知识全部源于《深入理解 JVM》
+
+1.JVM 存储2.垃圾回收机制3.类加载  
+
+一、JVM 存储首先盗张图  
+
+1. 程序计数器 (Program Counter Register)
+概念：一块较小的内存空间，是字节码解释器的行为指示器。  
+概念比较抽象，我们知道程序执行的过程中会有分支、循环、跳">
+<meta property="og:image" content="http://yoursite.com/2017/07/05/Android面试之「JVM-存储」/jvm01.png">
+<meta property="og:image" content="http://yoursite.com/2017/07/05/Android面试之「JVM-存储」/jvm02.jpg">
+<meta property="og:updated_time" content="2017-07-11T09:22:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android_ZzT's blog">
-<meta name="twitter:description" content="千里之行 始于足下">
+<meta name="twitter:title" content="Android面试之「JVM 篇 (上)」">
+<meta name="twitter:description" content="本文为原创文章，如需转载请注明出处，谢谢!
+概述本文将围绕以下3点对 JVM 知识进行总结，知识全部源于《深入理解 JVM》
+
+1.JVM 存储2.垃圾回收机制3.类加载  
+
+一、JVM 存储首先盗张图  
+
+1. 程序计数器 (Program Counter Register)
+概念：一块较小的内存空间，是字节码解释器的行为指示器。  
+概念比较抽象，我们知道程序执行的过程中会有分支、循环、跳">
+<meta name="twitter:image" content="http://yoursite.com/2017/07/05/Android面试之「JVM-存储」/jvm01.png">
   
     <link rel="alternative" href="/atom.xml" title="Android_ZzT&#39;s blog" type="application/atom+xml">
   
@@ -152,265 +183,218 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Android面试之「JVM-存储」" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Android面试之「JVM 篇 (上)」
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/05/Android面试之「JVM-存储」/" class="archive-article-date">
+
+        
+        <a href="/2017/07/05/Android面试之「JVM-存储」/" class="archive-article-date">
   	<time datetime="2017-07-05T12:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-05</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/05/Android面试之「JVM-存储」/">Android面试之「JVM 篇 (上)」</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>本文为原创文章，如需转载请注明出处，谢谢!</em></p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>本文将围绕以下3点对 JVM 知识进行总结，知识全部源于《深入理解 JVM》</p>
+<blockquote>
+<p>1.JVM 存储<br>2.垃圾回收机制<br>3.类加载  </p>
+</blockquote>
+<h3 id="一、JVM-存储"><a href="#一、JVM-存储" class="headerlink" title="一、JVM 存储"></a>一、JVM 存储</h3><p>首先盗张图  </p>
+<p><img src="/2017/07/05/Android面试之「JVM-存储」/jvm01.png" alt=""></p>
+<p><strong>1. 程序计数器 (Program Counter Register)</strong></p>
+<p>概念：一块较小的内存空间，是字节码解释器的行为指示器。  </p>
+<p>概念比较抽象，我们知道程序执行的过程中会有分支、循环、跳转、异常处理、线程恢复等基础功能，也就是程序运行碰到了关键字或特殊行为，字节码解释器就需要进行特殊处理，而字节码需要怎么做正是由程序计数器去通知。</p>
+<p>程序计数器是在每条线程中独立存在的一块内存，不与其他线程共享，所以这类内存叫「线程私有」的内存。</p>
+<p><strong>2. Java 虚拟机栈 (VM Stack)</strong></p>
+<p>概念：Java 方法执行的内存模型，每个方法执行的时候，都会创建一个栈帧用于保存局部变量表，操作数栈，动态链接，方法出口信息等。一个方法调用的过程就是一个栈帧从 VM 栈入栈到出栈的过程。（平时说的「堆和栈」的栈就是他了）</p>
+<p>这个概念就比较友好了，VM 栈主要用于存储方法包含的信息：</p>
+<ul>
+<li>局部变量表:<br>  -基本数据类型(byte,short,int,long,float,double,boolean)<br>  -引用类型(reference 类型，可能是指向一个对象起始地址的引用指针，或是指向另一个引用指针的引用)<br>  -returnAddress 类型（我理解的是方法返回值类型）</li>
+</ul>
+<p>另外，这个区域中有两种异常：StackOverflowError，OutOfMemoryError，很熟悉对吧。我们都知道递归深度达到一定程度，StackOverflow 就出现了，也就是 VM 栈的深度小于你请求的深度了。在栈的深度增加时，会开辟新内存，如果无法申请到足够的内存，OutOfMemory 就出现了。</p>
+<p>最后，VM 栈也是线程私有的。</p>
+<p><strong>3. 本地方法栈 (Native Method Stack)</strong></p>
+<p>概念：执行 Native 方法的栈</p>
+<p>与 VM 栈发挥的作用非常相似，VM 栈执行Java 方法（字节码）服务，Native 方法栈执行的是 Native 方法服务。</p>
+<p>同样的，有两种异常：StackOverflowError，OutOfMemoryError。</p>
+<p>Native 栈也是线程私有的。</p>
+<p><strong>4. Java 堆 (Java Heap)</strong></p>
+<p>概念：所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域唯一的目的就是存放对象实例，几乎所有的对象都在这分配内存。</p>
+<p>概念也说的比较清楚了，这里存放我们 new 的所有对象。如何管理这些对象呢？一般的虚拟机的垃圾收集器(GC)都采用分代收集算法（在总结垃圾回收的时候会详细说，这里我们先记住），所以 Java 堆可被细分为：新生代和老年代，更细的分法这里就不总结了。</p>
+<p>无论 Java 堆怎样划分，都与存储的内容无关，存储的永远都是对象实例，划分区域的目的是为了更好地回收内存，更快地分配内存。</p>
+<p>当堆中没有内存完成实例分配时，OutOfMemory 就出现了。</p>
+<p>Java 堆是线程共享的。</p>
+<p><strong>5. 方法区 (Method Area)</strong></p>
+<p>概念：存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码数据等。</p>
+<p>这部分区域包含「运行时常量池」，所以这个区域主要存储常量。方法区也常被人成为「永久代」（Permanent Generation)，但两者本质并不相同，永久代是垃圾收集器的一种分区方法，这样方法区可以和 Java 堆一样用一套回收算法，省的再为方法区单独编写管理内存的代码了。</p>
+<p>另外，JDK 1.6 中常量池和 Java 堆是分离的，JDK 1.7 中，常量池和 Java 堆合并共用一块内存。所以 String.intern()在 1.6 和 1.7 中的使用会有所不同。具体参考这篇文章<br><a href="http://tech.meituan.com/in_depth_understanding_string_intern.html" target="_blank" rel="external">http://tech.meituan.com/in_depth_understanding_string_intern.html</a></p>
+<p>当方法区无法满足内存分配需求时，OutOfMemory 就出现了。</p>
+<p>方法区是线程共享的。</p>
+<h3 id="二、垃圾回收机制"><a href="#二、垃圾回收机制" class="headerlink" title="二、垃圾回收机制"></a>二、垃圾回收机制</h3><p>首先思考两个问题  </p>
+<blockquote>
+<p>1.怎样判定一个对象的存活或死亡？<br>2.垃圾收集器是怎样管理对象的？</p>
+</blockquote>
+<p><strong>1. 引用计数法</strong>  </p>
+<p>一个教科书式的判断对象存活的算法，简单来说是这样的：给对象增加一个引用计数器，每当有地方引用这个对象时，计数器加一，当引用失效时，计数器减一。这个算法实现简单，判定效率也高，但是，Java 虚拟机中并没有选这种算法来管理内存，原因是它很难解决对象之间循环引用的问题。例子如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceCountingGC</span> </span>&#123;</div><div class="line">	<span class="keyword">public</span> Object instance = <span class="keyword">null</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> _1MB = <span class="number">1024</span> * <span class="number">1024</span>;</div><div class="line">	</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 这个成员的唯一意义就是占用内存，以便 GC 日志中看到对象被回收</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> <span class="keyword">byte</span>[] bigSize = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span> * _1MB];</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testGC</span><span class="params">()</span> </span>&#123;</div><div class="line">		ReferenceCountingGC a = <span class="keyword">new</span> ReferenceCountingGC();<span class="comment">//对象 A</span></div><div class="line">		ReferenceCountingGC b = <span class="keyword">new</span> ReferenceCountingGC();<span class="comment">//对象 B</span></div><div class="line">		a.instance = b;</div><div class="line">		b.instance = a;</div><div class="line">		</div><div class="line">		a = <span class="keyword">null</span>;</div><div class="line">		b = <span class="keyword">null</span>;</div><div class="line">		<span class="comment">//假设在这行发生 GC,A 和 B 能否被回收？</span></div><div class="line">		System.gc();</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我们先说结论，虽然 A 对象 和 B 对象互相引用，但虚拟机还是回收了它们，所以JVM 采用的不是引用计数法来管理内存的。在之后的小节再详细回答这个问题。</p>
+<p><strong>2. 可达性分析算法</strong>  </p>
+<p>带着上面的问题来理解这个算法，首先看张图 </p>
+<p><img src="/2017/07/05/Android面试之「JVM-存储」/jvm02.jpg" alt=""></p>
+<p>我们看图中右半部分，也许上面的问题就有了答案，虽然这三个对象互相引用，但是没有 GC Roots 引用他们，所以这三个对象还是要被回收。那么问题又来了，什么是 GC Roots 呢？</p>
+<blockquote>
+<p>在 Java 语言中，可作为 GC Roots:<br>1.虚拟机栈(栈帧中的本地变量表)中引用的对象<br>2.方法区中类静态属性引用的对象<br>3.方法区中常量引用的对象<br>4.本地方法栈中 JNI(一般说的 Native 方法)引用的对象</p>
+</blockquote>
+<p>清楚了 GC Roots 就可以分析上面的问题了，a 和 b 是 testGC()方法中的变量，保存在局部变量表中(虚拟机栈)中，所以 a 和 b 是 GC Roots，所以此时 A 和 B 对象是活着的，不会被回收。然后 <code>a.instance = b，b.instance = a</code>，instance 是 ReferenceCountingGC 对象的一个成员变量，不属于 GC Roots 范围内，所以尽管 A 和 B 对象在互相引用也无济于事，垃圾收集器还是将他们回收了。</p>
+<p><strong>3. 标记-清除算法 (Mark-Sweep)</strong> </p>
+<p>算法如其名，先标记出需要回收的对象，然后一并回收被标记过的对象。这里只简单总结一下标记的过程。</p>
+<p>我们上一节知道了如果对象没有 GCRoots 引用，就可判定为对象不可用，这也正是标记的第一步，如果对象已经被标记一次，它将被进行一次筛选，筛选条件为对象是否重写了 finalize()方法，或者 finalize()已经被虚拟机调用。当对象没重写或 finalize()已经被执行过，就证明对象已经没有可能再回到可用状态，待虚拟机第二次标记它时，就会被放到回收的集合中。</p>
+<p>上面提到了对象还有可能回到可用状态，秘密就在 finalize()方法中，假如第一次标记后发现对象重写了 finalize()，而且没被虚拟机调用过，对象就会被加入 F-Queue 队列中，然后会有一条优先级低的 Finalizer 线程去执行队列中对象的 finalize()方法，如果对象在 finalize()中完成了自我救赎，比如把 this 指向了其他的对象，那么在 F-Queue 中的第二次标记就会将其移除出回收集合。</p>
+<p>接下来说这个算法的不足：</p>
+<ul>
+<li>效率不高，标记和清除两个过程的效率都不高</li>
+<li>空间问题，标记清除之后会导致内存中出现大量的不连续的内存碎片，之后分配较大对象的内存空间时，导致没有足够的连续内存，可能会触发另一次的垃圾回收，这个问题也间接的反映出了效率不高。</li>
+</ul>
+<p>知道了缺点，就应该避免，所以 JVM 并不是只用这一个算法去垃圾回收，而是在对象存活率较高的时候，使用这个算法。</p>
+<p><strong>4.标记-整理算法 (Mark-Compact)</strong></p>
+<p>这可以说是标记-清除的升级版算法，上一节中说到标记-清扫容易导致内存出现碎片，而这个算法解决了这一问题。标记-整理是在标记后，将存活的对象都向前移动，等到所有存货对象都移动到了内存空间的最前端时，再回收后面的不可用对象。</p>
+<p><strong>5.复制算法</strong></p>
+<p>为了解决效率问题，复制算法出现了，它将可用内存容量划分为大小相等的两块，每次只用其中的一块。当这块内存用完了，就将还存活的对象复制到另一块上，然后清除已使用的那块。这样每次固定回收一半内存，实现简单，运行高效，并且不会出现内存碎片。</p>
+<p>但是这个算法的代价也很大，就是要牺牲一半的内存。</p>
+<p><strong>6.分代收集算法</strong></p>
+<p>当前商业虚拟机的垃圾收集都是采用的「分代收集算法」，主要是将堆分为新生代和老年代。<br>  新生代：对象存活率低，每次垃圾回收后都只有少量对象存活，所以此时用复制算法。<br>  老年代：对象存活率高，大量存活的对象，此时用标记-清除(标记-整理）算法。</p>
+<p><em>由于篇幅有限，类加载相关内容将放到 JVM 篇(下）中总结</em></p>
+<p><em>我也是个初学者，如写的有问题，请及时联系我！感谢！</em></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感谢支持！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wechatpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/05/Android面试之「JVM-存储」/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/27/初识Https,大白话讲解/" class="archive-article-date">
-  	<time datetime="2017-04-27T08:49:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/27/初识Https,大白话讲解/">初识 Https，大白话讲解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/网络/" class="article-tag-list-link color3">网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/15/Android-7-0-语言设置爬坑/" class="archive-article-date">
-  	<time datetime="2017-04-15T15:31:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/15/Android-7-0-语言设置爬坑/">Android 7.0 语言设置爬坑</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/28/Android-面试准备之「equals-和-」/" class="archive-article-date">
-  	<time datetime="2017-03-28T09:58:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/28/Android-面试准备之「equals-和-」/"> Android 面试准备之「equals 和 == 」</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/23/使用-SurfaceView-写个画板/" class="archive-article-date">
-  	<time datetime="2017-03-23T10:39:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/23/使用-SurfaceView-写个画板/">使用 SurfaceView 写个画板</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/04/27/初识Https,大白话讲解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">初识 Https，大白话讲解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -433,8 +417,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
