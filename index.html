@@ -177,7 +177,7 @@
 <p>文中将使用 Client 和 Server 代表客户端和服务端</p>
 </blockquote>
 <h3 id="一、TCP-三次握手建立连接"><a href="#一、TCP-三次握手建立连接" class="headerlink" title="一、TCP 三次握手建立连接"></a>一、TCP 三次握手建立连接</h3><p>还是先盗张图，无图无真相。</p>
-<img src="/2017/07/13/Android-面试之「网络基础篇」/07/13/Android-面试之「网络基础篇」/tcp01.png" alt="TCP三次握手" title="TCP三次握手">
+<img src="/2017/07/13/Android-面试之「网络基础篇」/http1.png" alt="TCP三次握手" title="TCP三次握手">
 <p><strong>1.初始状态</strong>  </p>
 <p>一开始的状态比较简单，Server 打开进程并处于 LISTEN(收听)状态，随时准备处理 Client 的连接请求。Client 主动打开进程，准备发送第一条报文。</p>
 <p><strong>2. Client 发出连接请求 (第一次握手)</strong></p>
@@ -197,7 +197,7 @@
 <p>主要是为了防止失效的连接请求报文又发送到 Server，因而产生错误。</p>
 <p>下面具体说说这种情况，Client 向 Server 发出连接请求报文，但是报文在途中丢失了，没能收到 Server 的确认报文，于是 Client 就又发送了一次连接请求，这次连接正常，数据传输完毕后，断开了 TCP 连接。</p>
 <p>假设上述情况的第一次连接请求报文没有丢失，而是由于网络节点长时间滞留了，导致延误到连接释放后的某个时间才到达 Server。这时 Server 会再次给 Client 发送确认报文(第二次握手)，但是 Client 进程程序并不会理睬确认报文，因为 Client 没有发送连接请求。现在假如没有第三次握手就会建立连接，那么这次滞后的连接请求报文就会导致 TCP 误建立连接，而 Client 却不知已经建立连接，并不会发送数据给 Server，这样 Server 就会一直处于等待状态，这样就白白浪费了 Server 的很多资源。但有了第三次握手就会避免这种问题的发生，虽然延迟的连接请求发送到了 Server，但 Client 不会处理 Server 的确认报文，也不会再次发送确认请求报文，这样 Server 就知道了 Client 并没有真正想建立连接。</p>
-<h3 id="二、TCP-四次挥手释放连接"><a href="#二、TCP-四次挥手释放连接" class="headerlink" title="二、TCP 四次挥手释放连接"></a>二、TCP 四次挥手释放连接</h3><img src="/2017/07/13/Android-面试之「网络基础篇」/07/13/Android-面试之「网络基础篇」/tcp02.png" alt="TCP四次挥手" title="TCP四次挥手">
+<h3 id="二、TCP-四次挥手释放连接"><a href="#二、TCP-四次挥手释放连接" class="headerlink" title="二、TCP 四次挥手释放连接"></a>二、TCP 四次挥手释放连接</h3><img src="/2017/07/13/Android-面试之「网络基础篇」/http0.png" alt="TCP四次挥手" title="TCP四次挥手">
 <p>从图中可以看到，Client 和 Server 在已连接的状态下开始进行数据传输，待传输结束后，开始四次握手释放连接。  </p>
 <p><strong>1.Client 发送释放连接请求 (第一次握手)</strong></p>
 <p>首先，Client 发送释放连接报文请求，报文首部的终止控制位 FIN 置 1，序号 seq=u，它等于之前已传送的最后一个数据报文的序号 +1。这时 Client 进入 FIN-WAIT-1 状态，等待 Server 确认。</p>
@@ -312,7 +312,7 @@
 <p>1.JVM 存储<br>2.垃圾回收机制<br>3.类加载  </p>
 </blockquote>
 <h3 id="一、JVM-存储"><a href="#一、JVM-存储" class="headerlink" title="一、JVM 存储"></a>一、JVM 存储</h3><p>首先盗张图  </p>
-
+<p><img src="/2017/07/05/Android面试之「JVM 篇 (上)」/" alt="">」/http01.png)</p>
 <p><strong>1. 程序计数器 (Program Counter Register)</strong></p>
 <p>概念：一块较小的内存空间，是字节码解释器的行为指示器。  </p>
 <p>概念比较抽象，我们知道程序执行的过程中会有分支、循环、跳转、异常处理、线程恢复等基础功能，也就是程序运行碰到了关键字或特殊行为，字节码解释器就需要进行特殊处理，而字节码需要怎么做正是由程序计数器去通知。</p>
@@ -353,6 +353,7 @@
 <p><strong>2. 可达性分析算法</strong>  </p>
 <p>带着上面的问题来理解这个算法，首先看张图 </p>
 
+<p><img src="/2017/07/05/Android面试之「JVM 篇 (上)」/" alt="">」/http02.png)</p>
 <p>我们看图中右半部分，也许上面的问题就有了答案，虽然这三个对象互相引用，但是没有 GC Roots 引用他们，所以这三个对象还是要被回收。那么问题又来了，什么是 GC Roots 呢？</p>
 <blockquote>
 <p>在 Java 语言中，可作为 GC Roots:<br>1.虚拟机栈(栈帧中的本地变量表)中引用的对象<br>2.方法区中类静态属性引用的对象<br>3.方法区中常量引用的对象<br>4.本地方法栈中 JNI(一般说的 Native 方法)引用的对象</p>
