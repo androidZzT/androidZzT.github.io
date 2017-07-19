@@ -286,19 +286,19 @@
 
 
   
-    <article id="post-Android面试之「JVM 篇 (上)」" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Android面试之JVM 篇 (上)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/05/Android面试之「JVM 篇 (上)」/">Android面试之「JVM 篇 (上)」</a>
+      <a class="article-title" href="/2017/07/05/Android面试之JVM 篇 (上)/">Android面试之JVM 篇 (上)</a>
     </h1>
   
 
         
-        <a href="/2017/07/05/Android面试之「JVM 篇 (上)」/" class="archive-article-date">
+        <a href="/2017/07/05/Android面试之JVM 篇 (上)/" class="archive-article-date">
   	<time datetime="2017-07-05T12:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-05</time>
 </a>
         
@@ -312,7 +312,7 @@
 <p>1.JVM 存储<br>2.垃圾回收机制<br>3.类加载  </p>
 </blockquote>
 <h3 id="一、JVM-存储"><a href="#一、JVM-存储" class="headerlink" title="一、JVM 存储"></a>一、JVM 存储</h3><p>首先盗张图  </p>
-<p><img src="/2017/07/05/Android面试之「JVM 篇 (上)」/" alt="">」/http01.png)</p>
+
 <p><strong>1. 程序计数器 (Program Counter Register)</strong></p>
 <p>概念：一块较小的内存空间，是字节码解释器的行为指示器。  </p>
 <p>概念比较抽象，我们知道程序执行的过程中会有分支、循环、跳转、异常处理、线程恢复等基础功能，也就是程序运行碰到了关键字或特殊行为，字节码解释器就需要进行特殊处理，而字节码需要怎么做正是由程序计数器去通知。</p>
@@ -353,7 +353,6 @@
 <p><strong>2. 可达性分析算法</strong>  </p>
 <p>带着上面的问题来理解这个算法，首先看张图 </p>
 
-<p><img src="/2017/07/05/Android面试之「JVM 篇 (上)」/" alt="">」/http02.png)</p>
 <p>我们看图中右半部分，也许上面的问题就有了答案，虽然这三个对象互相引用，但是没有 GC Roots 引用他们，所以这三个对象还是要被回收。那么问题又来了，什么是 GC Roots 呢？</p>
 <blockquote>
 <p>在 Java 语言中，可作为 GC Roots:<br>1.虚拟机栈(栈帧中的本地变量表)中引用的对象<br>2.方法区中类静态属性引用的对象<br>3.方法区中常量引用的对象<br>4.本地方法栈中 JNI(一般说的 Native 方法)引用的对象</p>
@@ -420,7 +419,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/05/Android面试之「JVM 篇 (上)」/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/07/05/Android面试之JVM 篇 (上)/">展开全文 >></a>
         </p>
       
 
