@@ -151,6 +151,285 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-面试题「单链表逆序」" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/27/面试题「单链表逆序」/">面试题「单链表逆序」</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/27/面试题「单链表逆序」/" class="archive-article-date">
+  	<time datetime="2017-07-27T08:43:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>本文为原创文章，如需转载请注明出处，谢谢!</em></p>
+<h3 id="扯淡"><a href="#扯淡" class="headerlink" title="扯淡"></a>扯淡</h3><p>今天出去面试又碰到这题了，从毕业到现在面试这么多次，也碰上了不少次这道题，可见这题的重要性。然而面试前没复习这题，导致面试的时候底气不足，虽然思路说对了，但是还是对自己的表现不满意。原因就是算法题当时解出来的时候印象非常深刻，但是过后的工作中很少涉及，很容易淡忘。所以必须要总结，把每次面试的坑都总结下来，为之后的面试做准备。</p>
+<h3 id="正题"><a href="#正题" class="headerlink" title="正题"></a>正题</h3><p>废话不说了，直接给大家看张我总结的思路图。</p>
+<img src="/2017/07/27/面试题「单链表逆序」/07/27/面试题「单链表逆序」/reverse.png" alt="单链表逆序" title="单链表逆序">
+<p>我们对照着图一步一步的分析，帮助大家记忆。</p>
+<p><strong>1.定义三个节点引用</strong>  </p>
+<p>我们用 <code>java</code> 语言实现就需要先定义三个节点引用，<code>Prev</code>表示上一个节点，<code>Head</code>表示当前节点，<code>Next</code>则表示下一个节点。然后让 Prev 指向 Null，Head 指向链表的头节点，Next 也指向 Null。</p>
+<p><strong>2.逆序过程</strong></p>
+<p>最重要的一步，这步会了，以后的步骤都是重复第一步，循环即可。</p>
+<p>(1) 初始状态，Head—&gt;A，Prev—&gt;Null，Next—&gt;Null。</p>
+<p>(2) Next = Head.next，首先用 Next 引用缓存下一个节点，为什么这是第一步？因为如果先将 Head.next 逆序指向前面节点，下一个节点就丢了，就没有引用可以拿到下一个节点了。</p>
+<p>(3) Prev = Head.next，再将当前节点的下一个节点指向 Head 前面的节点，完成逆序。</p>
+<p>(4) 到现在为止，Prev—&gt;Null，Head—&gt;A（头结点），Next—&gt;B，A.next—&gt;Prev(Null)。然后，需要将 Prev 和 Head 都向右移动，即 Prev—&gt;Head(A)，Head—&gt;Next(B)。这步操作完之后就得到了图中的第二条。</p>
+<p><strong>3.再来一遍</strong></p>
+<p>不明白第一步没关系，我们继续分析第二步。流程和 (1) 完全一致。</p>
+<p>(1) 初始状态，Head—&gt;B，Prev—&gt;A，Next—&gt;A(上一步中没对 Next 做操作，所以还是指向 A)。  </p>
+<p>(2) Next = Head.next。同样先缓存下一个节点，现在 Next—&gt;C。</p>
+<p>(3) Prev = Head.next，将当前节点的链和前一节点连接，现在 B.next—&gt;Prev(A)</p>
+<p>(4) 目前情况是，Prev—&gt;A，Head—&gt;B（头结点），Next—&gt;C，B.next—&gt;Prev(A)，同样地，向右移动 Prev 和 Head，即 Prev-&gt;Head(B)，Head—&gt;Next(C)。完成之后就得到了图中的第三条。</p>
+<p><strong>4.再来一遍，重要的事说三遍</strong></p>
+<p>再重复一遍，要是还不知道过程我也没辙了~</p>
+<p>(1) 初始状态，Head—&gt;C，Prev—&gt;B，Next—&gt;B。</p>
+<p>(2) Next = Head.next。缓存下一个节点，现在 Next—&gt;D。</p>
+<p>(3) Prev = Head.next，将当前节点的链和前一节点连接，现在 C.next—&gt;Prev(B)</p>
+<p>(4) 目前情况是，Prev—&gt;B，Head—&gt;C（头结点），Next—&gt;D，B.next—&gt;Prev(B)，同样地，向右移动 Prev 和 Head，即 Prev-&gt;Head(C)，Head—&gt;Next(D)。</p>
+<p><strong>5.伪代码</strong></p>
+<p>分析了这么多，我们知道了逆序的流程，得到如下伪代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Next = Head.next;</div><div class="line">Head.next = Prev;<span class="comment">//让链指向前节点</span></div><div class="line">Prev = Head;<span class="comment">//右移</span></div><div class="line">Head = Next;</div></pre></td></tr></table></figure>
+<p><strong>6.结束条件</strong>  </p>
+<p>循环终止的条件是什么呢？请看图中后两条，当只剩一个节点 E 没完成逆序的时候，还需要再重复一次刚才的步骤，向右移动 Prev 和 Head 后就得到了最后一条，看到 Head 指向了 Null（是右移 Head 的时候，Head—&gt; Next，此时的 Next 为 E.next=Null）。所以判断条件为 <code>while(Head != null)</code>。</p>
+<p><strong>7.完整代码</strong>  </p>
+<p>最后，附上完整代码。空间复杂度为 O(n)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> val;</div><div class="line">    ListNode next = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    ListNode(<span class="keyword">int</span> val) &#123;</div><div class="line">        <span class="keyword">this</span>.val = val;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">ReverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        </div><div class="line">	ListNode prev = <span class="keyword">null</span>;</div><div class="line">	ListNode next = <span class="keyword">null</span>;</div><div class="line">	</div><div class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>) &#123;</div><div class="line">            next = head.next;</div><div class="line">            head.next = prev;</div><div class="line">            prev = head;</div><div class="line">            head = next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> prev;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这次详细总结了以后，相信再面试再也不怕「单链表逆序」了！</p>
+<p><em>我也是个初学者，如写的有问题，请及时联系我！感谢！</em></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/27/面试题「单链表逆序」/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-Android-IPC由浅入深-二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/23/Android-IPC由浅入深-二/">Android IPC由浅入深(二)</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/23/Android-IPC由浅入深-二/" class="archive-article-date">
+  	<time datetime="2017-07-23T09:03:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>本文为原创文章，如需转载请注明出处，谢谢!</em> </p>
+<p>文章继续</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/23/Android-IPC由浅入深-二/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-Android-IPC由浅入深(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/20/Android-IPC由浅入深(一)/">Android IPC由浅入深(一)</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/20/Android-IPC由浅入深(一)/" class="archive-article-date">
+  	<time datetime="2017-07-20T10:01:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>本文为原创文章，如需转载请注明出处，谢谢!</em> </p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>本篇仅给刚刚接触 Binder 的同学入门，各位大佬可以自行忽略~</p>
+<p>对于 Android 初学者来说，IPC 机制无疑是一块难啃的骨头，抽象难懂，而且经常让人深入到无法自拔，经过 Binder 对我 3 天的洗礼，我决定由浅入深地总结一下 Binder 相关的知识。</p>
+<p>由于我没学习过 C++，在看其他大神对 framework 层 binder 的工作原理的分析时，就像是在读天书，完全无法理解，这也让我恍然大悟，可能我太过于深入的研究底层以至于应用层的东西我可能都还没理解透彻，导致理解的云里雾里。</p>
+<p>所以，我打算第一篇文章就记录以下内容:</p>
+<blockquote>
+<p>1.AIDL 怎么用<br>2.分析 AIDL 生成的代码<br>3.自己动手撸一个 AIDL  </p>
+</blockquote>
+<h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>首先还是要聊聊跨进程的意义何在，我们为什么要选择多进程去开发程序？多进程的优缺点又是什么？接下来，逐一解决这几个问题。</p>
+<ul>
+<li>为什么要选择多进程去开发程序？</li>
+</ul>
+<p>假如程序的某些模块比较特殊，非常耗用内存，这就需要运行在单独的进程中，以缓解主进程的压力。或者有些即时通讯的应用需要一个常驻后台，再或者用一个单独的进程作为守护进程，防止主进程被杀死等等，多进程的使用场景还是非常广泛的。</p>
+<ul>
+<li>多进程的优缺点？</li>
+</ul>
+<p>先说说优点，刚在上一个问题其实已经说到，缓解了主进程的内存压力，我们知道在 Android 中一个应用可以有多个进程，而一个进程就分配一个虚拟机，所以单独一个进程可以分配一个虚拟机的完整内存。</p>
+<p>至于缺点就是增大了系统的开销，可能导致耗电量增大，而最主要的缺点就是我们无法在操作同一个内存区域了，于是一些问题就出现了:  </p>
+<blockquote>
+<p>(1)静态成员和单例模式完全失效<br>(2)线程同步机制完全失效<br>(3)SharedPreferences 的可靠性下降 (并发读写的问题)<br>(4)Application 会创建多次</p>
+</blockquote>
+<p>所以这就需要 IPC 机制登场了！开始正文部分！</p>
+<h3 id="一、先会用-AIDL"><a href="#一、先会用-AIDL" class="headerlink" title="一、先会用 AIDL"></a>一、先会用 AIDL</h3><p>看了很多文章，都用的「Android 开发艺术探索」中书的例子，在这咱们换一个俗点儿的，就用存取钱，假如一个进程代表银行，一个进程代表你，你要去银行存取钱就要用到 AIDL 了。好了，废话不说了，直接上代码吧。</p>
+<p><strong>1.Money 类</strong>   </p>
+<p>首先先写一个 class Money，实现 Parcelable 接口(序列化相关的知识就不在此文说了，如果不懂请自行 google)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.juphoon.ipcdemo;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.os.Parcel;</div><div class="line"><span class="keyword">import</span> android.os.Parcelable;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by Android_ZzT on 17/7/20.</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Money</span> <span class="keyword">implements</span> <span class="title">Parcelable</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> value;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Money</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.id = id;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> value;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValue</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.value = value;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Parcelable.Creator&lt;Money&gt; CREATOR = <span class="keyword">new</span> Creator&lt;Money&gt;() &#123;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> Money <span class="title">createFromParcel</span><span class="params">(Parcel source)</span> </span>&#123;<span class="comment">//反序列化过程，从包裹还原对象</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Money(source);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="keyword">public</span> Money[] newArray(<span class="keyword">int</span> size) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Money[size];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">describeContents</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeToParcel</span><span class="params">(Parcel dest, <span class="keyword">int</span> flags)</span> </span>&#123; <span class="comment">//序列化过程，将数据写入包裹</span></div><div class="line">        <span class="comment">//写入的顺序需要和反序列化时对应</span></div><div class="line">        dest.writeInt(id);</div><div class="line">        dest.writeInt(value);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Money</span><span class="params">(Parcel source)</span> </span>&#123;</div><div class="line">        id = source.readInt();</div><div class="line">        value = source.readInt();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>比较简单，要说明的都在注释了。</p>
+<p><strong>2.IBankService.aidl</strong></p>
+<p>在 Android Studio 中，在跟目录下右键–&gt;new–&gt;AIDL–&gt;AIDL File ，输入IBankService 即可生成所需文件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// IBankService.aidl</span></div><div class="line"><span class="keyword">package</span> com.juphoon.ipcdemo;</div><div class="line"></div><div class="line"><span class="comment">// Declare any non-default types here with import statements</span></div><div class="line"><span class="keyword">import</span> your_package_name.Money; <span class="comment">//这里一定要导入 Money</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IBankService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">inputMoney</span><span class="params">(in Money money)</span></span>;</div><div class="line"></div><div class="line">    <span class="function">List&lt;Money&gt; <span class="title">getMoney</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于不理解AIDL 语法的可参考这篇文章，详细分析了 in out inout，我就不在此赘述了。<br><a href="http://www.jianshu.com/p/ddbb40c7a251" target="_blank" rel="external">http://www.jianshu.com/p/ddbb40c7a251</a></p>
+<p><strong>3.Money.aidl</strong></p>
+<p>同样地方法生成 Money.aidl</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Money.aidl</span></div><div class="line"><span class="keyword">package</span> your_package_name; <span class="comment">//注意这里的包名要和 Money 类的包保持一致</span></div><div class="line">parcelable Money; <span class="comment">//只需声明这一行就可以</span></div></pre></td></tr></table></figure>
+<p>在使用 AIDL 时，如果需要定义自己的类进行序列化，即实现 Parcelable 接口，都需要在 aidl 目录下再声明一下，否则编译时会不通过。</p>
+<p><strong>4.Make Project</strong></p>
+<p>重新构建项目，编译过后，就会在 generated/source/aidl 目录下生成对应的 java 文件。</p>
+<p><strong>5.客户端进程(MainActivity)</strong></p>
+<p>过程也很简单，先绑定 Service，绑定成功后获取服务对象，然后调用服务。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> mIsBind;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> IBankService bankService;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> moneyId = <span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> ServiceConnection mServiceConnection = <span class="keyword">new</span> ServiceConnection() &#123;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName name, IBinder service)</span> </span>&#123;</div><div class="line">            Log.d(<span class="string">"zzt"</span>, <span class="string">"onServiceConnected: ComponentName "</span> + name);</div><div class="line">            Log.d(<span class="string">"zzt"</span>, <span class="string">"onServiceConnected: Binder "</span> + service);</div><div class="line">            mIsBind = <span class="keyword">true</span>;</div><div class="line">            bankService = IBankService.Stub.asInterface(service);</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                List&lt;Money&gt; myMoney = bankService.getMoney();</div><div class="line">                Log.d(<span class="string">"zzt"</span>, <span class="string">"Client getMoney: "</span> + myMoney.toString());</div><div class="line">            &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName name)</span> </span>&#123;</div><div class="line">            Log.d(<span class="string">"zzt"</span>, <span class="string">"onServiceDisconnected: "</span> + name);</div><div class="line">            mIsBind = <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBind</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!mIsBind) &#123;</div><div class="line">        	Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, BankService.class);</div><div class="line">        	bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);        </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onUnBind</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mIsBind) &#123;</div><div class="line">            unbindService(mServiceConnection);</div><div class="line">            mIsBind = <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onInputMoney</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Money money = <span class="keyword">new</span> Money();</div><div class="line">            money.setId(moneyId);</div><div class="line">            money.setValue(<span class="number">100</span>);</div><div class="line">            moneyId++;</div><div class="line">            bankService.inputMoney(money);</div><div class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onGetMoney</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            List&lt;Money&gt; myMoney = bankService.getMoney();</div><div class="line">            Log.d(<span class="string">"zzt"</span>, <span class="string">"Client getMoney: "</span> + myMoney.toString());</div><div class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码调用过程如下:<br>1.ServiceConnection<br>2.bindService<br>3.在 onServiceConnected 中获得服务对象(IBankService)，其中<code>IBankService.Stub.asInterface(service)</code>这行代码我们先不管是什么意思，只需要知道通过这个方法可以得到远程服务的对象即可。<br>4.调用服务</p>
+<p><strong>6.Service 进程(BankService)，服务端代码</strong></p>
+<p>服务端，我们先看代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BankService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> List&lt;Money&gt; myMoney = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="keyword">private</span> IBankService.Stub bankService = <span class="keyword">new</span> IBankService.Stub() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> List&lt;Money&gt; <span class="title">getMoney</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">            <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">                Log.d(<span class="string">"zzt"</span>, <span class="string">"BankService getMoney: "</span>+ myMoney);</div><div class="line">                <span class="keyword">if</span> (myMoney != <span class="keyword">null</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> myMoney;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inputMoney</span><span class="params">(Money money)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">            <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">                Log.d(<span class="string">"zzt"</span>, <span class="string">"BankkService inputMoney: "</span>+ money.toString());</div><div class="line">                <span class="keyword">if</span> (myMoney != <span class="keyword">null</span>) &#123;</div><div class="line">                    <span class="keyword">if</span> (!myMoney.contains(money)) &#123;</div><div class="line">                        myMoney.add(money);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="meta">@Nullable</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</div><div class="line">        Log.d(<span class="string">"zzt"</span>,<span class="string">"Service onBind"</span>);</div><div class="line">        Log.d(<span class="string">"zzt"</span>, <span class="string">"onBind: Binder "</span> + bankService);</div><div class="line">        <span class="keyword">return</span> bankService;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate();</div><div class="line">        Log.d(<span class="string">"zzt"</span>,<span class="string">"Service onCreate"</span>);</div><div class="line">        Money money = <span class="keyword">new</span> Money();</div><div class="line">		money.setId(<span class="number">0</span>);</div><div class="line">		money.setValue(<span class="number">10000</span>);</div><div class="line">		myMoney.add(money);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编码过程如下：  </p>
+<p>1.最开始我们声明了 IBankService.Stub 类的实例，这里我们先不解释这个类到底做了些什么，只需要知道这是 AIDL 工具帮我们生成的一个抽象类，并且需要使用它的子类来实现我们定义的接口(IBankService)方法，即实现我们想让服务进程真正想为我们提供什么样的服务，我们实现的服务就是维护了一个 List 负责管理钱，然后提供一个能存钱的方法。  </p>
+<p>2.实现 onBind 方法，此方法需要返回一个 IBinder 对象，直接返回我们实现的 Stub 实例即可，由此可见 Stub 是 IBinder 的子类，具体是什么我们也先不分析，后面小节再做解释，只需明白我们返回的 IBinder 对象将会传给客户端的<figure class="highlight plain"><figcaption><span>name, IBinder service)```方法，供客户端调用。  </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">3.onCreate() 中做一些初始化工作。</div><div class="line"></div><div class="line">此外，还有重要的一点，跨进程跨进程，我们需要跨不同的进程，所以千万别忘了在 Manifest 里将 BankService 声明并指定在其他进程工作，代码如下:</div><div class="line"></div><div class="line">```xml</div><div class="line">       &lt;service</div><div class="line">            android:name=&quot;.BankService&quot;</div><div class="line">            android:process=&quot;:remote&quot;&gt;</div><div class="line">            &lt;intent-filter&gt;</div><div class="line">                &lt;action android:name=&quot;com.zzt.ipcdemo.BANKSERVICE&quot;/&gt;</div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/service&gt;</div></pre></td></tr></table></figure></p>
+<p>这里还要简单说一下 <code>:remote</code>，这种方式指定的进程是私有进程，进程名为当前进程+:remote，即<code>com.packagename.ipcdemo:remote</code>，私有进程不允许其他应用的组件和它跑在一个进程。如果用<code>com.packagename.ipcdemo.remote</code>这种自命名的方式，就是指定了一个全局进程，其他应用的组件可以通过 ShareUID 方式和它跑在同一个进程。</p>
+<p>至此，所有代码已经编写完毕，一个简单的跨进程 demo 就完成了，各位可以自己敲一遍，然后运行一下，看看打印的信息，熟悉一下方法的调用顺序，初步体验一下看不见摸不着虚无缥缈的跨进程操作。这个过程你可能完全体验不到任何感觉，因为 Binder 机制被高度封装了，但是不要着急，我们一点一点深入，在下一节可能就会不知不觉的进入了 Binder 世界，然后慢慢体会吧！</p>
+<p>写着写着发现篇幅太多了，所以 AIDL 的分析相关内容放在下一篇。<br></p>
+<p><em>我也是个初学者，可能有些细节描述的不准确</em><br><em>如写的有问题，可在简书中给我留言！感谢！</em></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/20/Android-IPC由浅入深(一)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Android-面试之「网络基础篇」" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
